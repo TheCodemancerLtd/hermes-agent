@@ -218,7 +218,13 @@ acp = ["agent-client-protocol==0.9.0"]
 # Chatto self-hosted webchat platform adapter (plugins/platforms/chatto).
 # Async Python client for Chatto's ConnectRPC API + WebSocket realtime stream.
 # `[realtime]` extra pulls `websockets>=13` needed by the inbound event loop.
-chatto = ["chattolib[realtime]>=0.4.11,<0.5"]
+chatto = [
+  "chattolib[realtime]>=0.4.11,<0.5",
+  # chattolib 0.4.x ships protobuf gencode compiled against 7.x runtime;
+  # its own pin (protobuf>=5.28) is looser than reality, so we tighten
+  # here or the runtime raises VersionError on first import.
+  "protobuf>=7.34,<8",
+]
 # mistral: Voxtral STT + TTS. Pinned to an exact verified-clean version.
 # The `mistralai` PyPI project was quarantined 2026-05-12 after the malicious
 # 2.4.6 release (Mini Shai-Hulud worm); 2.4.6 was removed from PyPI and the
@@ -312,6 +318,18 @@ all = [
 hermes = "hermes_cli.main:main"
 hermes-agent = "run_agent:main"
 hermes-acp = "acp_adapter.entry:main"
+
+[tool.uv]
+# chattolib 0.4.x ships protobuf gencode compiled against 7.x runtime;
+# its own pin (protobuf>=5.28) is looser than reality. Several extras in
+# this tree (mem0ai, modal, daytona, mistral-common) transitively cap
+# protobuf<7 conservatively — they generally work with 7.x at runtime,
+# so override the resolver to prefer 7.x when chatto is installed. The
+# baseline install without [chatto] is unaffected because chatto is not
+# in [all].
+override-dependencies = [
+  "protobuf>=7.34,<8",
+]
 
 [tool.setuptools]
 py-modules = ["run_agent", "model_tools", "toolsets", "batch_runner", "trajectory_compressor", "toolset_distributions", "cli", "hermes_bootstrap", "hermes_constants", "hermes_state", "hermes_time", "hermes_logging", "utils", "mcp_serve"]
