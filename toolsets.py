@@ -288,6 +288,12 @@ TOOLSETS = {
         "includes": [],
     },
 
+    "chatto": {
+        "description": "Chatto webchat tools (post_message, list_rooms, add_reaction, start_dm, mark_room_as_read)",
+        "tools": ["chatto"],
+        "includes": [],
+    },
+
     "yuanbao": {
         "description": "Yuanbao platform tools - group info, member queries, DM, stickers",
         "tools": [
