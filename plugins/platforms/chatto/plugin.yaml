@@ -1,0 +1,48 @@
+name: chatto-platform
+label: Chatto
+kind: platform
+version: 0.1.0
+description: >
+  Chatto webchat gateway adapter for Hermes Agent.
+  Connects to a Chatto server (self-hosted or chatto.run) via the async
+  chattolib client — ConnectRPC for RPC calls, WebSocket for the realtime
+  event stream. Supports threads, reactions, attachments, DMs, edits,
+  typing indicators, and read state. Bidirectional: users chat with Hermes
+  from any Chatto client, and the agent can post/react/DM via the chatto
+  toolset.
+author: Hermes
+requires_env:
+  - name: CHATTO_TOKEN
+    description: "Chatto bearer token (from `chattoctl token create` or a user session)"
+    prompt: "Chatto bearer token"
+    url: "https://chatto.run/docs/api/auth"
+    password: true
+  - name: CHATTO_BASE_URL
+    description: "Chatto server base URL (e.g. https://chat.example.com)"
+    prompt: "Chatto server URL"
+    password: false
+optional_env:
+  - name: CHATTO_ALLOWED_USERS
+    description: "Comma-separated Chatto user IDs (ULIDs) allowed to talk to the bot"
+    prompt: "Allowed users (comma-separated ULIDs)"
+    password: false
+  - name: CHATTO_ALLOW_ALL_USERS
+    description: "Allow any Chatto user to trigger the bot (dev only)"
+    prompt: "Allow all users? (true/false)"
+    password: false
+  - name: CHATTO_HOME_ROOM
+    description: "Default room ID for cron / notification delivery"
+    prompt: "Home room ULID"
+    password: false
+  - name: CHATTO_HOME_ROOM_NAME
+    description: "Display name for the Chatto home room"
+    prompt: "Home room display name"
+    password: false
+  - name: CHATTO_ALLOWED_ROOMS
+    description: "Comma-separated room ULIDs the bot will respond in (whitelist; unset = any)"
+    prompt: "Allowed rooms"
+    password: false
+  - name: CHATTO_REPLY_MODE
+    description: "How the bot replies: 'thread' (nest in threads), 'reply' (in_reply_to), or 'off' (flat)"
+    prompt: "Reply mode (thread/reply/off)"
+    password: false

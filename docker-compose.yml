@@ -58,6 +58,16 @@ services:
       # - GOOGLE_CHAT_SUBSCRIPTION_NAME=${GOOGLE_CHAT_SUBSCRIPTION_NAME}
       # - GOOGLE_CHAT_SERVICE_ACCOUNT_JSON=${GOOGLE_CHAT_SERVICE_ACCOUNT_JSON}
       # - GOOGLE_CHAT_ALLOWED_USERS=${GOOGLE_CHAT_ALLOWED_USERS}
+      # Chatto — uncomment and fill in to enable the Chatto webchat gateway.
+      # Install the client library via `pip install hermes-agent[chatto]`.
+      # Get a bot token from your Chatto admin panel, or set CHATTO_LOGIN +
+      # CHATTO_PASSWORD instead for password auth.
+      # - CHATTO_BASE_URL=${CHATTO_BASE_URL}
+      # - CHATTO_TOKEN=${CHATTO_TOKEN}
+      # - CHATTO_ALLOWED_USERS=${CHATTO_ALLOWED_USERS}
+      # - CHATTO_ALLOWED_ROOMS=${CHATTO_ALLOWED_ROOMS}
+      # - CHATTO_HOME_ROOM=${CHATTO_HOME_ROOM}
+      # - CHATTO_REPLY_MODE=${CHATTO_REPLY_MODE:-reply}
     command: ["gateway", "run"]
 
   dashboard:
